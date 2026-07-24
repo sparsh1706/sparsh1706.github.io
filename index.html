@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sparsh Sharma — Data & AI professional building agents and analytics that create tangible, measurable impact. Los Angeles." />
+  <meta name="author" content="Sparsh Sharma" />
+  <meta name="theme-color" content="#1C1917" />
+
+  <!-- Set theme before paint to avoid flash. Dark is the default. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t ? t === 'dark' : true) document.documentElement.classList.add('dark');
+      } catch (e) { document.documentElement.classList.add('dark'); }
+    })();
+  </script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sparsh Sharma — Data & AI" />
+  <meta property="og:description" content="I think, I wonder, I ponder — and I execute ideas into the real world, creating tangible impact." />
+
+  <title>Sparsh Sharma — Data & AI</title>
+
+  <!-- Fonts: Comic Neue (display) · Newsreader (body) · IBM Plex Mono (utility/data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind (Play CDN — swap for a compiled build before production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            paper: 'var(--paper)',
+            surface: 'var(--surface)',
+            ink: 'var(--ink)',
+            stone: 'var(--stone)',
+            line: 'var(--line)',
+            clay: {
+              DEFAULT: 'var(--clay)',
+              deep: 'var(--clay-deep)',
+              wash: 'var(--clay-wash)',
+            },
+          },
+          fontFamily: {
+            display: ['Fraunces', 'Georgia', 'serif'],
+            body: ['Newsreader', 'Georgia', 'serif'],
+            mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+          },
+          borderRadius: { md: '6px', xl: '12px', '2xl': '16px' },
+          boxShadow: {
+            sm: '0 1px 2px rgba(43,35,32,.04)',
+            md: '0 4px 16px rgba(43,35,32,.06)',
+            lg: '0 12px 32px rgba(43,35,32,.08)',
+          },
+          maxWidth: { prose: '68ch' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ------- Design tokens (design.md §1) ------- */
+    :root {
+      --paper: #F4EEE2;
+      --surface: #FBF7EF;
+      --ink: #2B2320;
+      --stone: #6B6259;
+      --clay: #BC5B39;
+      --clay-deep: #9E4A2C;
+      --clay-wash: #F0E0D6;
+      --line: #E3DAC9;
+    }
+    html.dark {
+      --paper: #1C1917;
+      --surface: #262220;
+      --ink: #EDE6D8;
+      --stone: #A79E92;
+      --clay: #D6754F;
+      --clay-deep: #C05E3B;
+      --clay-wash: #2E2620;
+      --line: #37312C;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Newsreader', Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color .25s ease, color .25s ease;
+    }
+
+    /* Kicker / eyebrow (design.md §2) */
+    .kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: .8125rem;
+      font-weight: 500;
+      color: var(--clay);
+    }
+
+    /* Display headings tightened (design.md §2) */
+    .font-display { letter-spacing: -0.02em; }
+
+    /* Accessible focus ring (design.md §3) */
+    :focus-visible {
+      outline: 2px solid var(--clay);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* Selection uses the accent wash */
+    ::selection { background: var(--clay-wash); color: var(--ink); }
+
+    /* Scroll reveal (design.md §3 — once, on scroll-in) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .5s ease-out, transform .5s ease-out;
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* Animated underline for text links */
+    .link-underline {
+      background-image: linear-gradient(var(--clay), var(--clay));
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 0% 1.5px;
+      transition: background-size .2s ease, color .15s ease;
+    }
+    .link-underline:hover,
+    .link-underline:focus-visible { background-size: 100% 1.5px; color: var(--clay-deep); }
+
+    /* Reduced motion (design.md §3) */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+
+<body class="font-body antialiased">
+
+  <!-- Skip link (a11y) -->
+  <a href="#main"
+     class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-xl focus:bg-clay focus:px-4 focus:py-2 focus:text-paper focus:shadow-md">
+    Skip to content
+  </a>
+
+  <!-- ============================ NAV ============================ -->
+  <header id="site-header"
+          class="sticky top-0 z-50 border-b border-transparent bg-paper/95 backdrop-blur-sm transition-colors duration-300">
+    <nav aria-label="Primary" class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 md:px-8">
+      <!-- Monogram -->
+      <a href="#top" class="group flex items-center gap-2" aria-label="Sparsh Sharma — home">
+        <span aria-hidden="true"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-line font-display text-lg font-bold text-ink transition-colors duration-150 group-hover:border-clay group-hover:text-clay">S</span>
+        <span class="font-display text-base font-bold tracking-tight">Sparsh Sharma</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden items-center gap-1 md:flex" role="list">
+        <li><a href="#about"    class="nav-link rounded-md px-3 py-2 text-sm text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">About</a></li>
+        <li><a href="#work"     class="nav-link rounded-md px-3 py-2 text-sm text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">Work</a></li>
+        <li><a href="#projects" class="nav-link rounded-md px-3 py-2 text-sm text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">Projects</a></li>
+        <li><a href="#skills"   class="nav-link rounded-md px-3 py-2 text-sm text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">Skills</a></li>
+        <li><a href="#beyond"   class="nav-link rounded-md px-3 py-2 text-sm text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">Beyond</a></li>
+        <li><a href="#contact"  class="nav-link rounded-md px-3 py-2 text-sm text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <!-- Theme toggle -->
+        <button id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"
+                class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-all duration-150 hover:border-clay hover:text-clay active:scale-95">
+          <!-- sun (shown in light) -->
+          <svg class="theme-icon-sun h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+          </svg>
+          <!-- moon (shown in dark) -->
+          <svg class="theme-icon-moon hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+          </svg>
+        </button>
+
+        <!-- Résumé (desktop) -->
+        <a href="./assets/Sparsh-Sharma-Resume.pdf" download
+           class="hidden rounded-xl border border-line px-4 py-2 text-sm text-ink transition-colors duration-150 hover:border-clay hover:bg-clay-wash focus-visible:bg-clay-wash md:inline-block">
+          Résumé
+        </a>
+
+        <!-- Mobile menu button -->
+        <button id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"
+                class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors duration-150 hover:border-clay hover:text-clay md:hidden">
+          <svg class="menu-icon-open h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg class="menu-icon-close hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden border-t border-line bg-paper md:hidden">
+      <ul class="mx-auto flex max-w-5xl flex-col px-6 py-2" role="list">
+        <li><a href="#about"    class="mobile-link block rounded-md px-2 py-3 text-stone transition-colors hover:text-clay">About</a></li>
+        <li><a href="#work"     class="mobile-link block rounded-md px-2 py-3 text-stone transition-colors hover:text-clay">Work</a></li>
+        <li><a href="#projects" class="mobile-link block rounded-md px-2 py-3 text-stone transition-colors hover:text-clay">Projects</a></li>
+        <li><a href="#skills"   class="mobile-link block rounded-md px-2 py-3 text-stone transition-colors hover:text-clay">Skills</a></li>
+        <li><a href="#beyond"   class="mobile-link block rounded-md px-2 py-3 text-stone transition-colors hover:text-clay">Beyond Work</a></li>
+        <li><a href="#contact"  class="mobile-link block rounded-md px-2 py-3 text-stone transition-colors hover:text-clay">Contact</a></li>
+        <li><a href="./assets/Sparsh-Sharma-Resume.pdf" download class="mobile-link block rounded-md px-2 py-3 text-clay">Download résumé →</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top" class="sr-only"></span>
+
+    <!-- ============================ HERO ============================ -->
+    <section aria-labelledby="hero-heading" class="scroll-mt-24">
+      <div class="mx-auto grid max-w-5xl items-start gap-12 px-6 py-24 md:grid-cols-[1.4fr_1fr] md:px-8 md:py-32">
+        <div class="reveal">
+          <p class="kicker mb-5">Data &amp; AI · Los Angeles</p>
+          <h1 id="hero-heading" class="font-display text-6xl font-bold leading-[0.95] sm:text-7xl">Sparsh Sharma</h1>
+          <p class="mt-6 max-w-prose font-body text-xl leading-relaxed text-ink sm:text-2xl">
+            Data &amp; AI professional turning data into decisions — dashboards, automation pipelines,
+            and LLM agents that drive measurable business outcomes.
+          </p>
+          <p class="mt-5 max-w-prose text-lg leading-relaxed text-stone">
+            3 years across telecom, consulting, supply chain, and accounting — from startups to Fortune 50,
+            delivering <span class="text-clay">multi-million-dollar</span> revenue and operational gains.
+          </p>
+
+          <div class="mt-9 flex flex-wrap items-center gap-3">
+            <a href="#contact"
+               class="rounded-xl bg-clay px-6 py-3 font-body text-paper shadow-sm transition-all duration-150 hover:bg-clay-deep hover:shadow-md focus-visible:bg-clay-deep active:scale-[.98]">
+              Get in touch
+            </a>
+            <a href="#work"
+               class="rounded-xl border border-line px-6 py-3 font-body text-ink transition-colors duration-150 hover:border-clay hover:bg-clay-wash focus-visible:bg-clay-wash active:scale-[.98]">
+              See the work
+            </a>
+          </div>
+
+          <!-- Social row -->
+          <ul class="mt-9 flex items-center gap-4" role="list" aria-label="Social links">
+            <li><a href="https://www.linkedin.com/in/sparsh-sharma-ucla/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.24 8.25h4.5V24h-4.5V8.25zM8.5 8.25h4.31v2.15h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.98c0-1.66-.03-3.8-2.32-3.8-2.32 0-2.68 1.81-2.68 3.68V24H8.5V8.25z"/></svg>
+            </a></li>
+            <li><a href="https://github.com/sparsh1706" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.42.36.79 1.08.79 2.18v3.24c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+            </a></li>
+            <li><a href="https://x.com/sparsh1706" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)" class="text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26L22.5 21.75h-6.56l-5.14-6.72-5.88 6.72H1.6l7.73-8.84L1.5 2.25h6.73l4.65 6.14 5.36-6.14zm-1.16 17.52h1.83L7.02 4.13H5.06l12.02 15.64z"/></svg>
+            </a></li>
+            <li><a href="https://public.tableau.com/app/profile/sparsh.sharma1162/vizzes" target="_blank" rel="noopener noreferrer" aria-label="Tableau Public" class="text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M9 20V4M14 20v-7M19 20V7"/></svg>
+            </a></li>
+            <li><a href="mailto:sparsh2209@gmail.com" aria-label="Email" class="text-stone transition-colors duration-150 hover:text-clay focus-visible:text-clay">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </a></li>
+          </ul>
+        </div>
+
+        <!-- Portrait -->
+        <div class="reveal order-first justify-self-center md:order-none md:justify-self-end">
+          <figure class="relative w-64 sm:w-72">
+            <!-- warm "afternoon light" arcs behind the photo -->
+            <svg aria-hidden="true" viewBox="0 0 100 100"
+                 class="pointer-events-none absolute -right-5 -top-5 h-36 w-36 text-clay opacity-40">
+              <g fill="none" stroke="currentColor" stroke-width="1">
+                <circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="44"/>
+              </g>
+            </svg>
+            <img src="./assets/profile.jpg" alt="Sparsh Sharma"
+                 width="576" height="720" loading="eager" decoding="async"
+                 style="object-position:50% 22%;"
+                 class="relative aspect-[4/5] w-full rounded-2xl border border-line object-cover shadow-md" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ ABOUT ============================ -->
+    <section id="about" aria-labelledby="about-heading" class="scroll-mt-24 border-t border-line">
+      <div class="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+        <div class="reveal">
+          <p class="kicker mb-4">About</p>
+          <h2 id="about-heading" class="font-display text-3xl font-bold sm:text-4xl">A philosopher who ships.</h2>
+        </div>
+
+        <div class="mt-10 grid gap-12 md:grid-cols-[1.5fr_1fr]">
+          <div class="reveal max-w-prose space-y-5 text-lg leading-relaxed text-stone">
+            <p class="font-body text-xl italic leading-relaxed text-ink">
+              I think, I wonder, I ponder — and then I execute, turning ideas into things that live in the real world.
+            </p>
+            <p>
+              I approach work — and life — with a <span class="text-ink">philosophical, detached-yet-involved</span>
+              mindset: close enough to care deeply about the outcome, far enough to see the problem clearly.
+              Impact and giving back to society are my center themes.
+            </p>
+            <p>
+              I chase excellence relentlessly — aiming to be in the <span class="text-ink">top 1%</span> at
+              everything I take on. In practice that means defining the real problem, quantifying the impact,
+              and shipping tools people actually use, not dashboards that gather dust.
+            </p>
+            <p>
+              I'm a strong communicator who works well with teams — empathetic, kind, and genuinely energized by
+              hard, innovative problems. The spaces that light me up: <span class="text-ink">AI, entrepreneurship,
+              health-tech, and sports.</span>
+            </p>
+          </div>
+
+          <aside class="reveal space-y-6" aria-label="Highlights">
+            <div class="rounded-2xl border border-line bg-surface p-6 shadow-sm">
+              <p class="kicker mb-4 !text-stone">Education</p>
+              <div class="space-y-5">
+                <div>
+                  <p class="font-display text-lg font-bold leading-snug text-ink">UCLA Anderson School of Management</p>
+                  <p class="mt-1 text-sm text-stone">MS in Business Analytics</p>
+                  <p class="mt-2 flex items-start gap-2 text-sm text-ink">
+                    <svg class="mt-0.5 h-4 w-4 flex-none text-clay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg>
+                    Excellence in Consulting Award
+                  </p>
+                </div>
+                <div class="border-t border-line pt-5">
+                  <p class="font-display text-lg font-bold leading-snug text-ink">Delhi Technological University</p>
+                  <p class="mt-1 text-sm text-stone">B.Tech, Mechanical Engineering</p>
+                  <p class="mt-2 flex items-start gap-2 text-sm text-ink">
+                    <svg class="mt-0.5 h-4 w-4 flex-none text-clay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m14.2 14.2 4.6 4.6"/><circle cx="18.4" cy="6.6" r="1.3"/></svg>
+                    Sports Captain — Table Tennis
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <ul class="flex flex-wrap gap-2" role="list" aria-label="Areas of interest">
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">AI</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Entrepreneurship</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Health-tech</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Sports</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ WORK ============================ -->
+    <section id="work" aria-labelledby="work-heading" class="scroll-mt-24 border-t border-line">
+      <div class="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+        <div class="reveal">
+          <p class="kicker mb-4">Work</p>
+          <h2 id="work-heading" class="font-display text-3xl font-bold sm:text-4xl">Impact, not job descriptions.</h2>
+          <p class="mt-4 max-w-prose text-lg text-stone">Four roles across accounting, education, e-commerce, and telecom — each measured by what changed.</p>
+        </div>
+
+        <ol class="mt-12 space-y-0" role="list">
+          <!-- Lavi CPA -->
+          <li class="reveal border-t border-line py-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="font-mono text-xs text-clay">Jun 2026 — Present</p>
+                <h3 class="mt-2 font-display text-xl font-bold text-ink">AI Implementation Specialist</h3>
+                <p class="text-sm text-stone">Elias Aziz — Lavi CPA · Los Angeles</p>
+              </div>
+              <span class="inline-flex h-20 flex-none items-center rounded-lg border border-line bg-white px-5" aria-hidden="true">
+                <img src="./assets/logo-lavi.jpg" alt="" class="h-12 w-auto object-contain" />
+              </span>
+            </div>
+            <div class="mt-5 max-w-prose space-y-3 text-stone">
+              <p>Built and deployed AI agents and Claude Skills that automate tax and accounting workflows — email triage, file categorization, penalty location, and Form 843 follow-ups — replacing hours of manual work.</p>
+              <p>Automated financial reporting and reconciliation, building Lacerte-vs-QuickBooks invoice/A/R comparison reports and consolidated client penalty trackers to surface discrepancies and speed client turnaround.</p>
+            </div>
+          </li>
+
+          <!-- UCLA Anderson -->
+          <li class="reveal border-t border-line py-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="font-mono text-xs text-clay">Dec 2024 — Mar 2026</p>
+                <h3 class="mt-2 font-display text-xl font-bold text-ink">Data Analyst</h3>
+                <p class="text-sm text-stone">UCLA Anderson · Los Angeles · Part-time</p>
+              </div>
+              <span class="inline-flex h-20 flex-none items-center rounded-lg border border-line bg-white px-5" aria-hidden="true">
+                <img src="./assets/logo-ucla.png" alt="" class="h-12 w-auto object-contain" />
+              </span>
+            </div>
+            <div class="mt-5 max-w-prose space-y-3 text-stone">
+              <p>Built AI-powered learning assistants and prototype app-builder agents adopted by <span class="font-mono text-ink">200+</span> MBA students to support project development and autonomous learning.</p>
+              <p>Ran time-series and cluster analyses on multi-year Capstone outcomes, informing mentorship strategies that improved team success rates by <span class="font-mono text-ink">15%</span>.</p>
+              <p>Built Tableau dashboards correlating advisor feedback with student outcomes — driving curriculum updates that raised evaluation consistency <span class="font-mono text-ink">20%</span> and satisfaction <span class="font-mono text-ink">12%</span>.</p>
+            </div>
+          </li>
+
+          <!-- Amazon -->
+          <li class="reveal border-t border-line py-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="font-mono text-xs text-clay">Jun 2025 — Sep 2025</p>
+                <h3 class="mt-2 font-display text-xl font-bold text-ink">Business Intelligence Engineer Intern</h3>
+                <p class="text-sm text-stone">Amazon.com, Inc. · Bellevue, WA</p>
+              </div>
+              <span class="inline-flex h-20 flex-none items-center rounded-lg border border-line bg-white px-5" aria-hidden="true">
+                <img src="./assets/logo-amazon.png" alt="" class="h-11 w-auto object-contain" />
+              </span>
+            </div>
+            <div class="mt-5 max-w-prose space-y-3 text-stone">
+              <p>Built a score-based recommender and optimization algorithm that redistributes inventory across Fulfillment Centers using capacity, labor, and cost data — enabling faster, data-driven operational decisions.</p>
+              <p>Shipped an interactive web app and QuickSight dashboard with product managers and automated backlog-steering workflows, cutting manual reporting effort <span class="font-mono text-ink">40%</span> and improving network responsiveness at peak demand.</p>
+            </div>
+          </li>
+
+          <!-- Saarthee -->
+          <li class="reveal border-y border-line py-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="font-mono text-xs text-clay">Jun 2022 — Apr 2024</p>
+                <h3 class="mt-2 font-display text-xl font-bold text-ink">Analyst</h3>
+                <p class="text-sm text-stone">Saarthee.AI · Gurugram, India</p>
+              </div>
+              <span class="inline-flex h-20 flex-none items-center rounded-lg border border-line bg-white px-5" aria-hidden="true">
+                <img src="./assets/logo-saarthee.jpg" alt="" class="h-12 w-auto object-contain" />
+              </span>
+            </div>
+            <div class="mt-5 max-w-prose space-y-3 text-stone">
+              <p>Built automated analysis systems and data-flows (Python, KNIME) tracking KPIs — conversion, YoY/MoM growth, retention — enhancing revenue by <span class="font-mono text-ink">$235K</span> and cutting churn <span class="font-mono text-ink">8%</span> annually for a Fortune 50 telecom.</p>
+              <p>Ran A/B tests and cohort analyses enabling data-driven strategy shifts; built a Rep Performance Reporting tool in Tableau that cut tracking time <span class="font-mono text-ink">80%</span>.</p>
+              <p>Led an analytics team implementing geo-segmentation and opportunity-targeting models that improved sales close rates <span class="font-mono text-ink">28%</span>.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================ PROJECTS ============================ -->
+    <section id="projects" aria-labelledby="projects-heading" class="scroll-mt-24 border-t border-line">
+      <div class="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+        <div class="reveal">
+          <p class="kicker mb-4">Projects</p>
+          <h2 id="projects-heading" class="font-display text-3xl font-bold sm:text-4xl">Things I've built.</h2>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2">
+          <!-- Project 1 -->
+          <article class="reveal group flex flex-col rounded-2xl border border-line bg-surface p-8 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-clay hover:shadow-lg">
+            <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-line text-clay transition-colors duration-150 group-hover:border-clay" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 7.2l2.1 1.2M17.7 15.6l2.1 1.2M4.2 16.8l2.1-1.2M17.7 8.4l2.1-1.2"/><circle cx="12" cy="12" r="4"/></svg>
+            </div>
+            <p class="font-mono text-xs text-stone">Capstone · Hyperlocology</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-ink">Marketing Optimization AI Agent</h3>
+            <p class="mt-3 flex-1 text-stone">An AWS Bedrock-powered knowledge agent for marketing-campaign optimization and strategic recommendations — turning scattered campaign data into decisions.</p>
+            <ul class="mt-5 flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">AWS Bedrock</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">RAG</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">LLM Agents</li>
+            </ul>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="reveal group flex flex-col rounded-2xl border border-line bg-surface p-8 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-clay hover:shadow-lg">
+            <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-line text-clay transition-colors duration-150 group-hover:border-clay" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c3-6 6 2 9-2s6-4 9-6"/><path d="M3 21h18"/><path d="M7 8s1-3 3-3"/></svg>
+            </div>
+            <p class="font-mono text-xs text-stone">Data Engineering</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-ink">Wildfire &amp; Pollution Analytics Pipeline</h3>
+            <p class="mt-3 flex-1 text-stone">An end-to-end ETL pipeline processing <span class="font-mono text-ink">10 years</span> of wildfire data, with trend insights visualized in Tableau.</p>
+            <ul class="mt-5 flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">GCP</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">PySpark</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">DuckDB</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Tableau</li>
+            </ul>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="reveal group flex flex-col rounded-2xl border border-line bg-surface p-8 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-clay hover:shadow-lg">
+            <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-line text-clay transition-colors duration-150 group-hover:border-clay" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 8v6l9 5 9-5V8"/></svg>
+            </div>
+            <p class="font-mono text-xs text-stone">UCLA Anderson</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-ink">AI Learning Assistants</h3>
+            <p class="mt-3 flex-1 text-stone">AI-powered learning assistants and app-builder agents adopted by <span class="font-mono text-ink">200+</span> MBA students for project development and autonomous learning.</p>
+            <ul class="mt-5 flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">LLM Agents</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Prompt Engineering</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Python</li>
+            </ul>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="reveal group flex flex-col rounded-2xl border border-line bg-surface p-8 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-clay hover:shadow-lg">
+            <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-line text-clay transition-colors duration-150 group-hover:border-clay" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="12" height="4" rx="1"/><rect x="3" y="16" width="16" height="4" rx="1"/></svg>
+            </div>
+            <p class="font-mono text-xs text-stone">Amazon</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-ink">FC Inventory Redistribution Optimizer</h3>
+            <p class="mt-3 flex-1 text-stone">A score-based recommender and optimization algorithm redistributing inventory across Fulfillment Centers using capacity, labor, and cost data — cutting manual effort <span class="font-mono text-ink">40%</span>.</p>
+            <ul class="mt-5 flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Optimization</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">QuickSight</li>
+              <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Python</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="reveal mt-8 text-stone">
+          More on
+          <a href="https://github.com/sparsh1706" target="_blank" rel="noopener noreferrer" class="link-underline text-clay">GitHub</a>
+          and
+          <a href="https://public.tableau.com/app/profile/sparsh.sharma1162/vizzes" target="_blank" rel="noopener noreferrer" class="link-underline text-clay">Tableau Public</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================ SKILLS ============================ -->
+    <section id="skills" aria-labelledby="skills-heading" class="scroll-mt-24 border-t border-line">
+      <div class="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+        <div class="reveal">
+          <p class="kicker mb-4">Skills</p>
+          <h2 id="skills-heading" class="font-display text-3xl font-bold sm:text-4xl">The toolkit.</h2>
+        </div>
+
+        <dl class="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="reveal">
+            <dt class="kicker !text-stone mb-4 border-b border-line pb-2">Agentic AI</dt>
+            <dd><ul class="flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">LLM Agents</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">MCP &amp; Multi-agent</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">RAG &amp; Vector DBs</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Prompt Engineering</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Claude Code &amp; Skills</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">LLM Evaluation</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">AWS Bedrock</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Workflow Automation</li>
+            </ul></dd>
+          </div>
+
+          <div class="reveal">
+            <dt class="kicker !text-stone mb-4 border-b border-line pb-2">Data Analysis</dt>
+            <dd><ul class="flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Statistical Analysis</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Predictive Modeling</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Machine Learning</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">A/B Testing</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Cohort Analysis</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">KPI Design</li>
+            </ul></dd>
+          </div>
+
+          <div class="reveal">
+            <dt class="kicker !text-stone mb-4 border-b border-line pb-2">Languages</dt>
+            <dd><ul class="flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Python</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">SQL</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">R</li>
+            </ul></dd>
+          </div>
+
+          <div class="reveal">
+            <dt class="kicker !text-stone mb-4 border-b border-line pb-2">Data Visualization</dt>
+            <dd><ul class="flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Tableau</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Streamlit</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">QuickSight</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Excel</li>
+            </ul></dd>
+          </div>
+
+          <div class="reveal">
+            <dt class="kicker !text-stone mb-4 border-b border-line pb-2">Data Engineering</dt>
+            <dd><ul class="flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">ETL Pipelines</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">PySpark</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">dbt</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">KNIME</li>
+            </ul></dd>
+          </div>
+
+          <div class="reveal">
+            <dt class="kicker !text-stone mb-4 border-b border-line pb-2">Cloud &amp; Databases</dt>
+            <dd><ul class="flex flex-wrap gap-2" role="list">
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">AWS</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Snowflake</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">Redshift</li>
+              <li class="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink">DuckDB</li>
+            </ul></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================ BEYOND WORK ============================ -->
+    <section id="beyond" aria-labelledby="beyond-heading" class="scroll-mt-24 border-t border-line">
+      <div class="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+        <div class="reveal max-w-prose">
+          <p class="kicker mb-4">Beyond Work</p>
+          <h2 id="beyond-heading" class="font-display text-3xl font-bold sm:text-4xl">Off the clock.</h2>
+          <p class="mt-5 text-lg text-stone">The things that keep me curious, disciplined, and human.</p>
+        </div>
+
+        <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+          <!-- Travel -->
+          <li class="reveal flex items-start gap-4 rounded-2xl border border-line bg-surface p-5 shadow-sm transition-all duration-200 hover:border-clay hover:shadow-md">
+            <img src="./assets/beyond-travel.jpg" alt="Sparsh at Angels Landing, Zion" loading="lazy" decoding="async"
+                 class="h-16 w-16 flex-none rounded-xl object-cover" />
+            <div>
+              <h3 class="font-display text-lg font-bold text-ink">Travel</h3>
+              <p class="mt-1 text-sm text-stone">New places, new perspectives.</p>
+            </div>
+          </li>
+
+          <!-- Sports -->
+          <li class="reveal flex items-start gap-4 rounded-2xl border border-line bg-surface p-5 shadow-sm transition-all duration-200 hover:border-clay hover:shadow-md">
+            <img src="./assets/beyond-sports.jpg" alt="Sparsh playing table tennis" loading="lazy" decoding="async"
+                 class="h-16 w-16 flex-none rounded-xl object-cover" style="object-position:50% 10%;" />
+            <div>
+              <h3 class="font-display text-lg font-bold text-ink">Sports</h3>
+              <p class="mt-1 text-sm text-stone">Competition, teamwork, and always getting better.</p>
+            </div>
+          </li>
+
+          <!-- Martial Arts -->
+          <li class="reveal flex items-start gap-4 rounded-2xl border border-line bg-surface p-5 shadow-sm transition-all duration-200 hover:border-clay hover:shadow-md">
+            <img src="./assets/beyond-martial-arts.jpg" alt="Sparsh at the martial-arts gym" loading="lazy" decoding="async"
+                 class="h-16 w-16 flex-none rounded-xl object-cover" style="object-position:center 30%;" />
+            <div>
+              <h3 class="font-display text-lg font-bold text-ink">Martial Arts</h3>
+              <p class="mt-1 text-sm text-stone">Discipline and composure under pressure.</p>
+            </div>
+          </li>
+
+          <!-- Dance -->
+          <li class="reveal flex items-start gap-4 rounded-2xl border border-line bg-surface p-5 shadow-sm transition-all duration-200 hover:border-clay hover:shadow-md">
+            <img src="./assets/beyond-dance.jpg" alt="Sparsh doing a handstand on the salt flats" loading="lazy" decoding="async"
+                 class="h-16 w-16 flex-none rounded-xl object-cover" />
+            <div>
+              <h3 class="font-display text-lg font-bold text-ink">Dance</h3>
+              <p class="mt-1 text-sm text-stone">Balance, rhythm, and letting go.</p>
+            </div>
+          </li>
+
+          <!-- Writing → X -->
+          <li class="reveal flex items-start gap-4 rounded-2xl border border-line bg-clay-wash p-5 shadow-sm transition-all duration-200 hover:border-clay hover:shadow-md">
+            <span class="flex h-16 w-16 flex-none items-center justify-center rounded-xl border border-line bg-surface text-clay" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26L22.5 21.75h-6.56l-5.14-6.72-5.88 6.72H1.6l7.73-8.84L1.5 2.25h6.73l4.65 6.14 5.36-6.14zm-1.16 17.52h1.83L7.02 4.13H5.06l12.02 15.64z"/></svg>
+            </span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-ink">Writing</h3>
+              <p class="mt-1 text-sm text-stone">Life, philosophy, and observations.</p>
+              <a href="https://x.com/sparsh1706" target="_blank" rel="noopener noreferrer"
+                 class="mt-2 inline-flex items-center gap-1.5 font-mono text-xs text-clay link-underline">
+                @sparsh1706
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================ CONTACT ============================ -->
+    <section id="contact" aria-labelledby="contact-heading" class="scroll-mt-24 border-t border-line">
+      <div class="mx-auto max-w-5xl px-6 py-24 md:px-8 md:py-32">
+        <div class="grid gap-12 md:grid-cols-2">
+          <div class="reveal max-w-prose">
+            <p class="kicker mb-4">Contact</p>
+            <h2 id="contact-heading" class="font-display text-3xl font-bold sm:text-4xl">Let's connect.</h2>
+            <p class="mt-5 text-lg leading-relaxed text-stone">
+              Open to roles and collaborations in AI, analytics, and beyond. Whether you're working on something hard
+              and worthwhile — or you'd simply like to connect and chat — introduce yourself and drop a short message below.
+            </p>
+
+            <ul class="mt-8 space-y-3" role="list">
+              <li>
+                <a href="mailto:sparsh2209@gmail.com" class="group inline-flex items-center gap-3 text-ink">
+                  <span class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-stone transition-colors duration-150 group-hover:border-clay group-hover:text-clay" aria-hidden="true">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                  </span>
+                  <span class="link-underline">sparsh2209@gmail.com</span>
+                </a>
+              </li>
+              <li class="flex flex-wrap items-center gap-4 pt-2">
+                <a href="https://www.linkedin.com/in/sparsh-sharma-ucla/" target="_blank" rel="noopener noreferrer" class="link-underline text-clay">LinkedIn</a>
+                <span class="text-line" aria-hidden="true">·</span>
+                <a href="https://github.com/sparsh1706" target="_blank" rel="noopener noreferrer" class="link-underline text-clay">GitHub</a>
+                <span class="text-line" aria-hidden="true">·</span>
+                <a href="https://public.tableau.com/app/profile/sparsh.sharma1162/vizzes" target="_blank" rel="noopener noreferrer" class="link-underline text-clay">Tableau</a>
+                <span class="text-line" aria-hidden="true">·</span>
+                <a href="https://x.com/sparsh1706" target="_blank" rel="noopener noreferrer" class="link-underline text-clay">X</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact form (composes a mailto — works with no backend) -->
+          <form id="contact-form" class="reveal space-y-5" novalidate>
+            <div>
+              <label for="cf-name" class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-stone">Name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" required
+                     class="w-full rounded-xl border border-line bg-surface px-4 py-3 text-ink placeholder-stone/60 transition-all duration-150 hover:border-clay focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/30"
+                     placeholder="Your name" />
+            </div>
+            <div>
+              <label for="cf-email" class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-stone">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required
+                     class="w-full rounded-xl border border-line bg-surface px-4 py-3 text-ink placeholder-stone/60 transition-all duration-150 hover:border-clay focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/30"
+                     placeholder="you@example.com" />
+            </div>
+            <div>
+              <label for="cf-message" class="mb-1.5 block font-mono text-xs uppercase tracking-wider text-stone">Message</label>
+              <textarea id="cf-message" name="message" rows="4" required
+                        class="w-full resize-y rounded-xl border border-line bg-surface px-4 py-3 text-ink placeholder-stone/60 transition-all duration-150 hover:border-clay focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/30"
+                        placeholder="What are you working on?"></textarea>
+            </div>
+            <button type="submit"
+                    class="w-full rounded-xl bg-clay px-6 py-3 text-paper shadow-sm transition-all duration-150 hover:bg-clay-deep hover:shadow-md focus-visible:bg-clay-deep active:scale-[.98] sm:w-auto">
+              Send message
+            </button>
+            <p id="cf-status" role="status" aria-live="polite" class="text-sm text-stone"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="border-t border-line">
+    <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row md:px-8">
+      <p class="font-mono text-xs text-stone">© <span id="year">2026</span> Sparsh Sharma · Los Angeles</p>
+      <a href="#top" class="group inline-flex items-center gap-2 font-mono text-xs text-stone transition-colors duration-150 hover:text-clay">
+        Back to top
+        <svg class="h-4 w-4 transition-transform duration-150 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ============================ SCRIPT ============================ -->
+  <script>
+    (function () {
+      'use strict';
+      var root = document.documentElement;
+
+      /* ---------- Theme (light default; honor stored choice + OS) ---------- */
+      var toggle = document.getElementById('theme-toggle');
+      var sun = toggle.querySelector('.theme-icon-sun');
+      var moon = toggle.querySelector('.theme-icon-moon');
+
+      function applyTheme(dark) {
+        root.classList.toggle('dark', dark);
+        sun.classList.toggle('hidden', dark);
+        moon.classList.toggle('hidden', !dark);
+        toggle.setAttribute('aria-pressed', String(dark));
+        toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', dark ? '#1C1917' : '#F4EEE2');
+      }
+
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      // Dark is the default on first visit; a stored 'light' choice wins.
+      applyTheme(stored ? stored === 'dark' : true);
+
+      toggle.addEventListener('click', function () {
+        var dark = !root.classList.contains('dark');
+        applyTheme(dark);
+        try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+      });
+
+      /* ---------- Mobile menu ---------- */
+      var menuBtn = document.getElementById('menu-toggle');
+      var menu = document.getElementById('mobile-menu');
+      var openIcon = menuBtn.querySelector('.menu-icon-open');
+      var closeIcon = menuBtn.querySelector('.menu-icon-close');
+
+      function setMenu(open) {
+        menu.classList.toggle('hidden', !open);
+        openIcon.classList.toggle('hidden', open);
+        closeIcon.classList.toggle('hidden', !open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      menuBtn.addEventListener('click', function () { setMenu(menu.classList.contains('hidden')); });
+      menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+      /* ---------- Header hairline on scroll ---------- */
+      var header = document.getElementById('site-header');
+      function onScroll() { header.classList.toggle('border-line', window.scrollY > 8); }
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      /* ---------- Scroll reveal ---------- */
+      var reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function (el) { io.observe(el); });
+      } else {
+        reveals.forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      /* ---------- Active nav link (scroll spy) ---------- */
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+      var sections = navLinks
+        .map(function (l) { return document.querySelector(l.getAttribute('href')); })
+        .filter(Boolean);
+      if ('IntersectionObserver' in window && sections.length) {
+        var spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var id = entry.target.id;
+            navLinks.forEach(function (l) {
+              var active = l.getAttribute('href') === '#' + id;
+              l.classList.toggle('text-clay', active);
+              l.classList.toggle('text-stone', !active);
+              if (active) { l.setAttribute('aria-current', 'true'); } else { l.removeAttribute('aria-current'); }
+            });
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach(function (s) { spy.observe(s); });
+      }
+
+      /* ---------- Contact form → mailto (no backend needed) ---------- */
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('cf-status');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = form.name.value.trim();
+        var email = form.email.value.trim();
+        var message = form.message.value.trim();
+        var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        if (!name || !emailOk || !message) {
+          status.textContent = 'Please add your name, a valid email, and a message.';
+          status.className = 'text-sm text-clay';
+          return;
+        }
+        var subject = encodeURIComponent('Website message from ' + name);
+        var body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+        window.location.href = 'mailto:sparsh2209@gmail.com?subject=' + subject + '&body=' + body;
+        status.textContent = 'Opening your email app…';
+        status.className = 'text-sm text-stone';
+      });
+
+      /* ---------- Footer year ---------- */
+      var yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>
