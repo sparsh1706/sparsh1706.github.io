@@ -7,144 +7,76 @@
   <meta name="author" content="Sparsh Sharma" />
   <meta name="theme-color" content="#1C1917" />
 
-  <!-- Set theme before paint to avoid flash. Dark is the default. -->
+  <!-- Set theme before paint to avoid flash. First visit follows the OS preference (dark if unknown). -->
   <script>
     (function () {
       try {
         var t = localStorage.getItem('theme');
-        if (t ? t === 'dark' : true) document.documentElement.classList.add('dark');
+        var dark = t ? t === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
+        if (dark) document.documentElement.classList.add('dark');
       } catch (e) { document.documentElement.classList.add('dark'); }
     })();
   </script>
 
-  <!-- Open Graph -->
+  <link rel="canonical" href="https://sparsh1706.github.io/" />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sparsh1706.github.io/" />
+  <meta property="og:site_name" content="Sparsh Sharma" />
   <meta property="og:title" content="Sparsh Sharma - Data & AI" />
-  <meta property="og:description" content="I think, I wonder, I ponder - and I execute ideas into the real world, creating tangible impact." />
+  <meta property="og:description" content="Data & AI professional building LLM agents, analytics, and dashboards that create tangible, measurable impact. Los Angeles." />
+  <meta property="og:image" content="https://sparsh1706.github.io/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sparsh Sharma - Data & AI" />
+  <meta name="twitter:description" content="Data & AI professional building LLM agents, analytics, and dashboards that create tangible, measurable impact. Los Angeles." />
+  <meta name="twitter:image" content="https://sparsh1706.github.io/assets/og.png" />
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <title>Sparsh Sharma - Data & AI</title>
 
-  <!-- Fonts: Comic Neue (display) · Newsreader (body) · IBM Plex Mono (utility/data) -->
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sparsh Sharma",
+    "url": "https://sparsh1706.github.io/",
+    "image": "https://sparsh1706.github.io/assets/profile.jpg",
+    "jobTitle": "Data & AI Specialist",
+    "worksFor": { "@type": "Organization", "name": "Elias Aziz-Lavi CPA" },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "UCLA Anderson School of Management" },
+      { "@type": "CollegeOrUniversity", "name": "Delhi Technological University" }
+    ],
+    "email": "mailto:sparsshh8@gmail.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "CA" },
+    "sameAs": [
+      "https://www.linkedin.com/in/sparsh-sharma-ucla/",
+      "https://github.com/sparsh1706",
+      "https://x.com/sparsh1706",
+      "https://public.tableau.com/app/profile/sparsh.sharma1162/vizzes"
+    ]
+  }
+  </script>
+
+  <!-- Fonts: Fraunces (display) · Newsreader (body) · IBM Plex Mono (utility/data) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind (Play CDN - swap for a compiled build before production) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            paper: 'var(--paper)',
-            surface: 'var(--surface)',
-            ink: 'var(--ink)',
-            stone: 'var(--stone)',
-            line: 'var(--line)',
-            clay: {
-              DEFAULT: 'var(--clay)',
-              deep: 'var(--clay-deep)',
-              wash: 'var(--clay-wash)',
-            },
-          },
-          fontFamily: {
-            display: ['Fraunces', 'Georgia', 'serif'],
-            body: ['Newsreader', 'Georgia', 'serif'],
-            mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
-          },
-          borderRadius: { md: '6px', xl: '12px', '2xl': '16px' },
-          boxShadow: {
-            sm: '0 1px 2px rgba(43,35,32,.04)',
-            md: '0 4px 16px rgba(43,35,32,.06)',
-            lg: '0 12px 32px rgba(43,35,32,.08)',
-          },
-          maxWidth: { prose: '68ch' },
-        },
-      },
-    };
-  </script>
+  <!-- Compiled Tailwind + site styles (build: npm run build) -->
+  <link rel="stylesheet" href="./assets/tailwind.css" />
 
-  <style>
-    /* ------- Design tokens (design.md §1) ------- */
-    :root {
-      --paper: #F4EEE2;
-      --surface: #FBF7EF;
-      --ink: #2B2320;
-      --stone: #6B6259;
-      --clay: #BC5B39;
-      --clay-deep: #9E4A2C;
-      --clay-wash: #F0E0D6;
-      --line: #E3DAC9;
-    }
-    html.dark {
-      --paper: #1C1917;
-      --surface: #262220;
-      --ink: #EDE6D8;
-      --stone: #A79E92;
-      --clay: #D6754F;
-      --clay-deep: #C05E3B;
-      --clay-wash: #2E2620;
-      --line: #37312C;
-    }
-
-    body {
-      background-color: var(--paper);
-      color: var(--ink);
-      font-family: 'Newsreader', Georgia, serif;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color .25s ease, color .25s ease;
-    }
-
-    /* Kicker / eyebrow (design.md §2) */
-    .kicker {
-      font-family: 'IBM Plex Mono', monospace;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: .8125rem;
-      font-weight: 500;
-      color: var(--clay);
-    }
-
-    /* Display headings tightened (design.md §2) */
-    .font-display { letter-spacing: -0.02em; }
-
-    /* Accessible focus ring (design.md §3) */
-    :focus-visible {
-      outline: 2px solid var(--clay);
-      outline-offset: 3px;
-      border-radius: 3px;
-    }
-
-    /* Selection uses the accent wash */
-    ::selection { background: var(--clay-wash); color: var(--ink); }
-
-    /* Scroll reveal (design.md §3 - once, on scroll-in) */
-    .reveal {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity .5s ease-out, transform .5s ease-out;
-    }
-    .reveal.is-visible { opacity: 1; transform: none; }
-
-    /* Animated underline for text links */
-    .link-underline {
-      background-image: linear-gradient(var(--clay), var(--clay));
-      background-repeat: no-repeat;
-      background-position: 0 100%;
-      background-size: 0% 1.5px;
-      transition: background-size .2s ease, color .15s ease;
-    }
-    .link-underline:hover,
-    .link-underline:focus-visible { background-size: 100% 1.5px; color: var(--clay-deep); }
-
-    /* Reduced motion (design.md §3) */
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-      * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
-    }
-  </style>
+  <!-- Content stays readable if JavaScript is unavailable -->
+  <noscript>
+    <style>.reveal { opacity: 1 !important; transform: none !important; }</style>
+  </noscript>
 </head>
 
 <body class="font-body antialiased">
@@ -487,6 +419,11 @@
               <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">DuckDB</li>
               <li class="rounded-full border border-line bg-paper px-3 py-1 font-mono text-xs text-stone">Tableau</li>
             </ul>
+            <a href="https://github.com/sparsh1706/Wildfires-and-Pollution-Pipeline" target="_blank" rel="noopener noreferrer"
+               class="mt-5 inline-flex items-center gap-1.5 font-mono text-sm text-clay link-underline">
+              View on GitHub
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
           </article>
 
           <!-- Project 3 -->
@@ -848,8 +785,8 @@
 
       var stored = null;
       try { stored = localStorage.getItem('theme'); } catch (e) {}
-      // Dark is the default on first visit; a stored 'light' choice wins.
-      applyTheme(stored ? stored === 'dark' : true);
+      // A stored choice wins; otherwise follow the OS preference (dark if unknown).
+      applyTheme(stored ? stored === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches);
 
       toggle.addEventListener('click', function () {
         var dark = !root.classList.contains('dark');
@@ -913,9 +850,10 @@
         sections.forEach(function (s) { spy.observe(s); });
       }
 
-      /* ---------- Contact form → mailto (no backend needed) ---------- */
+      /* ---------- Contact form → FormSubmit relay (mailto fallback) ---------- */
       var form = document.getElementById('contact-form');
       var status = document.getElementById('cf-status');
+      var submitBtn = form.querySelector('button[type="submit"]');
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var name = form.name.value.trim();
@@ -928,11 +866,34 @@
           status.className = 'text-sm text-clay';
           return;
         }
-        var subject = encodeURIComponent('Website message from ' + name);
-        var body = encodeURIComponent(message + '\n\n- ' + name + ' (' + email + ')');
-        window.location.href = 'mailto:sparsshh8@gmail.com?subject=' + subject + '&body=' + body;
-        status.textContent = 'Opening your email app…';
+        submitBtn.disabled = true;
+        status.textContent = 'Sending…';
         status.className = 'text-sm text-stone';
+
+        fetch('https://formsubmit.co/ajax/sparsshh8@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+            _subject: 'Website message from ' + name,
+            _captcha: 'false'
+          })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('send failed');
+          return res.json();
+        }).then(function () {
+          form.reset();
+          status.textContent = "Message sent - I'll get back to you soon.";
+          status.className = 'text-sm text-clay';
+        }).catch(function () {
+          // Relay unavailable - fall back to the visitor's email app.
+          var subject = encodeURIComponent('Website message from ' + name);
+          var body = encodeURIComponent(message + '\n\n- ' + name + ' (' + email + ')');
+          window.location.href = 'mailto:sparsshh8@gmail.com?subject=' + subject + '&body=' + body;
+          status.textContent = 'Opening your email app…';
+        }).then(function () { submitBtn.disabled = false; });
       });
 
       /* ---------- Footer year ---------- */

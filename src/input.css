@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------- Design tokens (design.md §1) ------- */
+/* Light-mode clay darkened one step so 13px kickers, dates, and
+   button labels pass WCAG AA (was #BC5B39 at 3.87:1 on paper). */
+:root {
+  --paper: #F4EEE2;
+  --surface: #FBF7EF;
+  --ink: #2B2320;
+  --stone: #6B6259;
+  --clay: #9E4A2C;
+  --clay-deep: #7F3B22;
+  --clay-wash: #F0E0D6;
+  --line: #E3DAC9;
+  /* RGB triplets so Tailwind opacity modifiers (bg-paper/95 etc.) work */
+  --paper-rgb: 244 238 226;
+  --surface-rgb: 251 247 239;
+  --ink-rgb: 43 35 32;
+  --stone-rgb: 107 98 89;
+  --clay-rgb: 158 74 44;
+  --clay-deep-rgb: 127 59 34;
+  --clay-wash-rgb: 240 224 214;
+  --line-rgb: 227 218 201;
+}
+html.dark {
+  --paper: #1C1917;
+  --surface: #262220;
+  --ink: #EDE6D8;
+  --stone: #A79E92;
+  --clay: #D6754F;
+  --clay-deep: #C05E3B;
+  --clay-wash: #2E2620;
+  --line: #37312C;
+  --paper-rgb: 28 25 23;
+  --surface-rgb: 38 34 32;
+  --ink-rgb: 237 230 216;
+  --stone-rgb: 167 158 146;
+  --clay-rgb: 214 117 79;
+  --clay-deep-rgb: 192 94 59;
+  --clay-wash-rgb: 46 38 32;
+  --line-rgb: 55 49 44;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Newsreader', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+/* Kicker / eyebrow (design.md §2) */
+.kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .8125rem;
+  font-weight: 500;
+  color: var(--clay);
+}
+
+/* Display headings tightened (design.md §2) */
+.font-display { letter-spacing: -0.02em; }
+
+/* Accessible focus ring (design.md §3) */
+:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Selection uses the accent wash */
+::selection { background: var(--clay-wash); color: var(--ink); }
+
+/* Scroll reveal (design.md §3 - once, on scroll-in) */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease-out, transform .5s ease-out;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Animated underline for text links */
+.link-underline {
+  background-image: linear-gradient(var(--clay), var(--clay));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: background-size .2s ease, color .15s ease;
+}
+.link-underline:hover,
+.link-underline:focus-visible { background-size: 100% 1.5px; color: var(--clay-deep); }
+
+/* Reduced motion (design.md §3) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
